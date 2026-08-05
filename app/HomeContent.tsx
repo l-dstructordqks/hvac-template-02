@@ -733,14 +733,15 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            <div className='rounded-xl overflow-hidden mt-8'>
+            <div className='flex rounded-xl overflow-hidden mt-8 justify-center'>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2674.727462268584!2d-77.0832844!3d39.0534653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7ce8a45a95555%3A0xf555e6203f40870e!2sHVAC%20Innovation%20llc!5e1!3m2!1sen!2sus!4v1785857648002!5m2!1sen!2sus"
-                width="600"
+                width="90%"
                 height="370"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
+                className='rounded-xl'
                 
               />
             </div>
