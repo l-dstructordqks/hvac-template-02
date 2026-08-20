@@ -115,7 +115,7 @@ export function ServicePage({
       </section>
 
       {/* ── INTRO + QUICK QUOTE ── */}
-      <section className="py-20 bg-white">
+      <section className="pt-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
           <div className="md:col-span-2">
             <p className="text-[#e8420a] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
@@ -124,7 +124,7 @@ export function ServicePage({
             <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
               Why homeowners choose HVAC Innovation
             </h2>
-            <p className="text-[#5a6778] leading-relaxed text-base">{intro}</p>
+            <p className="text-[#2C3440] leading-relaxed text-base">{intro}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               {['NATE-certified technicians', 'Upfront pricing', 'Satisfaction guarantee', 'Same-day service'].map((t) => (
                 <div key={t} className="flex items-center gap-2 text-sm text-[#0d1b2e]">
@@ -152,7 +152,7 @@ export function ServicePage({
                 <h3 className="text-lg font-bold text-[#0f3460] mb-1" style={{ fontFamily: 'var(--font-display)' }}>
                   Message Sent!
                 </h3>
-                <p className="text-[#5a6778] text-sm">We&apos;ll reach out within the hour.</p>
+                <p className="text-[#2C3440] text-sm">We&apos;ll reach out within the hour.</p>
               </div>
             ) : (
               <>
@@ -183,7 +183,7 @@ export function ServicePage({
                     className="w-full bg-white border border-[#d4dbe6] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#0f3460]"
                   />
                   <textarea
-                    rows={3}
+                    rows={2}
                     placeholder="Tell us about your system..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -196,7 +196,7 @@ export function ServicePage({
                   >
                     REQUEST ESTIMATE
                   </button>
-                  <p className="text-center text-xs text-[#5a6778]">Response within 1 hour</p>
+                  <p className="text-center text-xs text-[#2C3440]">Response within 1 hour</p>
                 </form>
               </>
             )}
@@ -228,7 +228,7 @@ export function ServicePage({
                   <h3 className="text-[#0f3460] font-bold text-base mb-1" style={{ fontFamily: 'var(--font-display)' }}>
                     {b.title}
                   </h3>
-                  <p className="text-[#5a6778] text-sm leading-relaxed">{b.desc}</p>
+                  <p className="text-[#2C3440] text-sm leading-relaxed">{b.desc}</p>
                 </div>
               </div>
             ))}
@@ -275,7 +275,7 @@ export function ServicePage({
             &ldquo;HVAC Innovation showed up the same day I called. The technician was professional, explained everything
             clearly, and the price matched the quote exactly. Highly recommended.&rdquo;
           </blockquote>
-          <p className="mt-4 text-[#5a6778] text-sm">— Maria Rodriguez, Fairfax, VA</p>
+          <p className="mt-4 text-[#2C3440] text-sm">— Maria Rodriguez, Fairfax, VA</p>
         </div>
       </section>
 
@@ -313,7 +313,7 @@ export function ServicePage({
                 </button>
                 {openFaq === i && (
                   <div className="px-6 pb-5">
-                    <p className="text-[#5a6778] text-sm leading-relaxed">{faq.a}</p>
+                    <p className="text-[#2C3440] text-sm leading-relaxed">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -325,7 +325,7 @@ export function ServicePage({
       {/* ── RELATED SERVICES ── */}
       <section className="py-12 bg-white border-t border-[#d4dbe6]">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[#5a6778] text-xs font-bold tracking-widest mb-5" style={{ fontFamily: 'var(--font-display)' }}>
+          <p className="text-[#2C3440] text-xs font-bold tracking-widest mb-5" style={{ fontFamily: 'var(--font-display)' }}>
             OTHER SERVICES
           </p>
           <div className="flex flex-wrap gap-3">

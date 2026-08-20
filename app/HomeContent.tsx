@@ -4,12 +4,21 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from "framer-motion";
-import { BUSINESS_PHONE_DISPLAY, BUSINESS_EMAIL, FOUNDING_YEAR, BUSINESS_PHONE, BUSINESS_SCHEDULE_WEEK, BUSINESS_SCHEDULE_WEEKEND, SERVICE_AREA, ADDRESS } from '@/lib/schema'
+import { BUSINESS_PHONE_DISPLAY, BUSINESS_EMAIL, FOUNDING_YEAR, BUSINESS_PHONE, BUSINESS_SCHEDULE_WEEK, BUSINESS_SCHEDULE_WEEKEND, SERVICE_AREA, ADDRESS, SERVICE_AREA_CITIES } from '@/lib/schema'
 import { CATEGORIES } from '@/lib/navigation'
 import { DatePicker } from "@/app/components/forms/DatePicker"
 import { PROMOTIONS } from '@/lib/promotions'
 import { PromoCard } from './components/PromoCard'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+
+import {
+  Snowflake,
+  Flame,
+  Building2,
+  Wind,
+  Bolt,
+  Wrench,
+} from "lucide-react";
 
 
 // NOTE: metadata can't be exported from a 'use client' file. It's exported
@@ -44,107 +53,34 @@ const item = {
 
 const SERVICES = [
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-8 h-8">
-        <path d="M8 20v-8a4 4 0 0 1 8 0v8" />
-        <path d="M6 20h12" />
-        <path d="M12 4v4" />
-        <path d="M10 6l2-2 2 2" />
-      </svg>
-    ),
-    title: 'Heating',
-    desc: 'Furnaces, boilers, heat pumps, and ductless heating. Installation, repair, and maintenance for all brands with combustion safety testing.',
-    href: '/heating',
+    icon: <Snowflake className="w-9 h-9" />,
+    title: "Air Conditioning",
+    desc: "Central AC, ductless mini-splits, and air handlers. Safe refrigerant handling, wiring, and controls for peak summer efficiency.",
+    href: "/air-conditioning",
+    image: "/images/ac.webp",
   },
   {
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={1.8}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-9 h-9"
-      >
-        <rect x="4" y="5" width="16" height="6" rx="2"/>
-        <path d="M8 15c0 2-1 2-1 4"/>
-        <path d="M12 15c0 2-1 2-1 4"/>
-        <path d="M16 15c0 2-1 2-1 4"/>
-      </svg>
-    ),
-    title: 'Air Conditioning & Cooling',
-    desc: 'Central AC, ductless mini-splits, and air handlers. Safe refrigerant handling, wiring, and controls for peak summer efficiency.',
-    href: '/cooling',
+    icon: <Flame className="w-9 h-9" />,
+    title: "Heating & Furnaces",
+    desc: "Furnaces, boilers, heat pumps, and ductless heating. Installation, repair, and maintenance for all brands with combustion safety testing.",
+    href: "/heating",
+    image: "/images/heating.webp",
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-8 h-8">
-        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
-        <path d="M12 14v-4" />
-        <path d="M8 14h8" />
-      </svg>
-    ),
-    title: 'Water Heating',
-    desc: 'Traditional and tankless water heaters plus solar water boilers. Reliable hot water solutions with expert installation and maintenance.',
-    href: '/water-heating',
+    icon: <Building2 className="w-9 h-9" />,
+    title: "Commercial HVAC",
+    desc: "Rooftop units and commercial climate systems for offices and retail. Minimized downtime with professional installation and service.",
+    href: "/commercial-hvac",
+    image: "/images/comercial.webp",
   },
   {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-8 h-8">
-        <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
-      </svg>
-    ),
-    title: 'Indoor Air Quality',
-    desc: 'Air cleaners, humidifiers, and smart thermostats. Breathe easier with systems integrated into your HVAC for healthier home comfort.',
-    href: '/indoor-air-quality',
+    icon: <Wind className="w-9 h-9" />,
+    title: "Duct Work",
+    desc: "Comprehensive home upgrades from estimates to completion. Enhance your living space with the same trusted service since 2004.",
+    href: "/duct-work",
+    image: "/images/duct.webp",
   },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-8 h-8">
-        <path d="M3 21h18" />
-        <path d="M5 21V10l7-4 7 4v11" />
-        <path d="M9 21v-6h6v6" />
-        <path d="M10 3h4" />
-        <path d="M12 3v4" />
-      </svg>
-    ),
-    title: 'Commercial HVAC',
-    desc: 'Rooftop units and commercial climate systems for offices and retail. Minimized downtime with professional installation and service.',
-    href: '/commercial-hvac',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-8 h-8">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2" />
-        <path d="M12 20v2" />
-        <path d="M4.93 4.93l1.41 1.41" />
-        <path d="M17.66 17.66l1.41 1.41" />
-        <path d="M2 12h2" />
-        <path d="M20 12h2" />
-        <path d="M6.34 17.66l-1.41 1.41" />
-        <path d="M19.07 4.93l-1.41 1.41" />
-      </svg>
-    ),
-    title: 'Solar Solutions',
-    desc: 'Solar panel systems and solar water heating for Maryland homes. Cut electric bills with clean, renewable energy expertise since 2004.',
-    href: '/solar-solutions',
-  },
-  {
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-8 h-8">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
-        <path d="M12 2v4" />
-        <path d="M8 6h8" />
-      </svg>
-    ),
-    title: 'Home Improvement',
-    desc: 'Comprehensive home upgrades from estimates to completion. Enhance your living space with the same trusted service since 2004.',
-    href: '/home-improvement',
-  },
-]
+];
 
 const STATS = [
   { value: '25+', label: 'Years of Experience' },
@@ -152,6 +88,12 @@ const STATS = [
   { value: '4.9★', label: 'Average Rating' },
   { value: '24/7', label: 'Emergency Service' },
 ]
+const brands= [
+    { id: "carrier", name: "Carrier", tier: "authorized-dealer", image: "/images/brand5.png" },
+    { id: "trane", name: "Trane", tier: "partner", image: "/images/brand4.png" },
+    { id: "lennox", name: "Lennox", tier: "partner", image: "/images/brand7.png" },
+    { id: "goodman", name: "Goodman", tier: "partner", image: "/images/brand3.png" },
+  ]
 
 const TESTIMONIALS = [
   {
@@ -238,17 +180,22 @@ export default function HomePage() {
           style={{ fontFamily: 'var(--font-display)' }}
         >
           
-          LICENSED · BONDED · INSURED · WASHINGTON METRO AREA
+          LICENSED · BONDED · INSURED · FRISCO TEXAS
         </div>
         <div className="absolute inset-0 overflow-hidden min-h-[60vh]">
           
           <img
-            src="https://images.unsplash.com/photo-1642749776312-aa42ce20c9f5?w=1600&h=900&fit=crop&auto=format"
+            src="/images/suburbio3.webp"
             alt="HVAC technicians working on a rooftop unit"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover opacity-40"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-[#0a1e38]/90 via-[#0a1e38]/60 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#8A8F98]/10 via-[#8A8F98]/10 to-transparent" />
         </div>
+
+        <div className="slide-in-right absolute bg-[url('/images/bus1.webp')] aspect-3/2 w-[60vw] bottom-22 md:w-[50vw] bg-cover sm:bottom-0 lg:-bottom-10 right-0"
+          />
+
+        
 
         <div className="relative max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-11 gap-12 items-center w-full min-h-[60vh]">
           <div className='col-span-6'>
@@ -259,13 +206,13 @@ export default function HomePage() {
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-none mb-6"
               style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.01em' }}
             >
-              Comfort You
+              Leave It
               <br />
-              Can <span className="text-[#D91F26]">Count On.</span>
+              to the <span className="text-[#D91F26]">Raccoon</span>
             </h1>
 
             <p className="text-white/70 text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
-              HVAC service, installation & maintenance for all brands, plus solar water heating and home improvements. Proudly serving the Washintong Metro Area since {FOUNDING_YEAR}.
+              HVAC service, installation & maintenance for all brands, plus solar water heating and home improvements. Proudly serving in Frisco, Texas since {FOUNDING_YEAR}.
             </p>
 
             <div className="my-8 flex flex-col gap-3 sm:flex-row sm:gap-8 ">
@@ -288,7 +235,7 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-4">
               <a
                 href="#contact"
-                className="bg-[#D91F26] hover:bg-[#b92127] text-white font-bold px-8 py-4 rounded text-base active:scale-[0.98] shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+                className="bg-[#D91F26] hover:bg-[#b92127] text-white font-bold px-8 py-4 rounded-xl text-base active:scale-[0.98] shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
                 style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
               >
                 FREE ESTIMATE
@@ -297,7 +244,7 @@ export default function HomePage() {
               
               <a
                 href="tel:+17035550192"
-                className="border border-white/30 hover:border-white text-white font-semibold px-8 py-4 rounded text-base flex items-center gap-3 shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+                className="border border-white/30 hover:border-white text-white font-semibold px-8 py-4 rounded-xl text-base flex items-center gap-3 shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -310,6 +257,7 @@ export default function HomePage() {
 
             
           </div>
+
 
           {/*<div className="hidden md:block col-span-5">
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8">
@@ -344,14 +292,7 @@ export default function HomePage() {
             </div>
           </div>*/}
           
-          <div className='fixed right-2 bottom-10 z-30 md:hidden flex bg-[#D91F26] justify-center items-center p-3 h-12 rounded-xl gap-2'>
-            <a href={BUSINESS_PHONE} className="bg-[#D91F26] flex items-center justify-center flex-shrink-0">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-            </a>
-            <p className='font-bold justify-center text-white text-xs' style={{ fontFamily: 'var(--font-display)' }}> CALL US</p>
-          </div>
+          
           
 
         </div>
@@ -375,22 +316,23 @@ export default function HomePage() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="services" className="py-24 bg-[#f8f9fc]">
+      <section id="services" className="py-24 bg-[#8A8F98]/15">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+          <div className="text-left mb-16 mx-auto max-w-screen-lg">
+            <p className="text-[#E31E24] text-xs font-bold tracking-widest mb-3 bg-white w-fit px-2 py-0.5 shadow-sm" style={{ fontFamily: 'var(--font-display)' }}>
+              
               WHAT WE DO
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0f3460] leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#062A63] leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
               HVAC, Solar & Home Improvement
             </h2>
-            <p className="text-[#5a6778] mt-4 text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[#2C3440] mt-4 text-lg mx-auto leading-relaxed">
               From estimates and repairs to expert installations and ongoing maintenance, we service all major HVAC brands. Our services include furnaces, air conditioning, heat pumps, boilers, water heaters, rooftop units, ductless systems, humidifiers, thermostats, air cleaners, solar water heating, and home improvement solutions—all delivered with a smile.
             </p>
           </div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
             variants={container}
             initial="hidden"
             whileInView="show"
@@ -402,18 +344,22 @@ export default function HomePage() {
               <Link
                 key={s.title}
                 href={s.href}
-                className="bg-white border border-[#d4dbe6] rounded-xl p-7 hover:border-[#0f3460]/40 hover:shadow-lg transition-all group cursor-pointer block"
+                className="bg-white border border-[#d4dbe6] rounded-xl hover:border-[#0f3460]/40 hover:shadow-lg transition-all group cursor-pointer block"
               >
-                <div className='flex gap-3 items-center mb-5'>
-                  <div className="w-14 h-14 bg-[#eef1f6] group-hover:bg-[#0f3460] rounded-xl flex items-center justify-center transition-colors duration-300 text-[#0f3460] group-hover:text-white">
+                <div
+                  className="h-50 w-full bg-cover bg-center rounded-t-xl"
+                  style={{ backgroundImage: `url(${s.image})` }}
+                />
+                <div className='flex gap-3 items-center mb-3 p-3 justify-center'>
+                  <div className="w-7 h-7 rounded-xl flex items-center justify-center transition-colors duration-300 text-[#0A3B8A]">
                     {s.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-[#0f3460]" style={{ fontFamily: 'var(--font-display)' }}>
+                  <h3 className="text-xl font-bold text-[#0A3B8A]" style={{ fontFamily: 'var(--font-display)' }}>
                     {s.title}
                   </h3>
                 </div>
-                <p className="text-[#5a6778] text-sm leading-relaxed">{s.desc}</p>
-                <div className="mt-5 flex items-center gap-2 text-[#D91F26] text-sm font-semibold" style={{ fontFamily: 'var(--font-display)' }}>
+                <p className="text-[#2C3440] text-base leading-relaxed px-3">{s.desc}</p>
+                <div className="mt-5 flex items-center gap-2 text-[#D91F26] text-sm font-semibold px-3 pb-3" style={{ fontFamily: 'var(--font-display)' }}>
                   LEARN MORE
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7" />
@@ -423,85 +369,6 @@ export default function HomePage() {
               </motion.div>
             ))}
           </motion.div>
-        </div>
-      </section>
-
-      {/* ── ABOUT ── */}
-      <section id="about" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ x: -100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="relative">
-              
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#eef1f6]">
-                <img
-                  src="https://hvacinnovation.net/wp-content/uploads/2019/04/air-condi.jpg"
-                  alt="Outdoor air conditioning units"
-                  className="w-full h-full object-cover"
-                />
-                
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-[#D91F26] text-white rounded-2xl p-6 shadow-xl">
-                <div className="text-4xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>20+</div>
-                <div className="text-xs font-bold tracking-widest mt-1" style={{ fontFamily: 'var(--font-display)' }}>
-                  YEARS OF
-                  <br />
-                  EXCELLENCE
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <div>
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
-              ABOUT HVAC INNOVATION
-            </p>
-            {/* Written as a clear, citable "founded/who/where" statement — useful for
-                both human readers and GEO (AI answer engines quoting company facts). */}
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0f3460] leading-tight mb-6" style={{ fontFamily: 'var(--font-display)' }}>
-              Family-Owned.
-              <br />
-              Community-Trusted.
-            </h2>
-            <p className="text-[#5a6778] leading-relaxed mb-6">
-              Founded in 1999 by Robert and Linda Harmon, HVAC Innovation grew from a two-person operation into
-              Northern Virginia&apos;s leading HVAC provider. We&apos;re still a family-owned company with the same values:
-              honest work, fair pricing, and treating every customer like a neighbor.
-            </p>
-            <p className="text-[#5a6778] leading-relaxed mb-8">
-              Our team of 40+ NATE-certified technicians serves Arlington, Fairfax, Loudoun, and Prince William
-              counties. We service every brand and back every job with our 100% satisfaction guarantee.
-            </p>
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {[
-                ['NATE-Certified Technicians', 'Every technician is trained and certified to manufacturer standards.'],
-                ['Transparent Pricing', 'We quote before we start — no surprise charges on your invoice.'],
-                ['Same-Day Service', 'Most calls are scheduled the same day or the next.'],
-                ['2-Year Warranty', '2-year labor warranty on every repair job.'],
-              ].map(([title, desc]) => (
-                <div key={title} className="border border-[#d4dbe6] rounded-xl p-4">
-                  <h4 className="text-[#0f3460] font-bold text-sm mb-1" style={{ fontFamily: 'var(--font-display)' }}>
-                    {title}
-                  </h4>
-                  <p className="text-[#5a6778] text-xs leading-relaxed">{desc}</p>
-                </div>
-              ))}
-            </div>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-3 bg-[#0f3460] hover:bg-[#0a2548] text-white font-bold px-7 py-4 rounded transition-colors"
-              style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
-            >
-              SCHEDULE A CALL
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
         </div>
       </section>
 
@@ -520,7 +387,7 @@ export default function HomePage() {
                   <h3 className="text-white font-bold text-lg mb-2" style={{ fontFamily: 'var(--font-display)' }}>
                     {item.title}
                   </h3>
-                  <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
+                  <p className="text-white/60 text-base leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -528,15 +395,86 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── ABOUT ── */}
+      <section id="about" className="py-24 bg-[#8A8F98]/15">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+          <div className='md:col-span-2'>
+            <p className="text-[#E31E24] text-xs font-bold tracking-widest mb-3 bg-white w-fit px-2 py-0.5 shadow-sm" style={{ fontFamily: 'var(--font-display)' }}>
+              ABOUT HVAC INNOVATION
+            </p>
+            {/* Written as a clear, citable "founded/who/where" statement — useful for
+                both human readers and GEO (AI answer engines quoting company facts). */}
+            <h2 className="text-4xl md:text-5xl font-bold text-[#0f3460] leading-tight mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+              Professional HVAC Services Backed by Quality and Care
+            </h2>
+          </div>
+          <div>
+            
+            <p className="text-[#2C3440] text-lg leading-relaxed mb-6">
+              Repair-It Raccoon is your trusted local HVAC expert for heating, cooling, repair, and comfort. Whether you need a new AC installation, emergency repair, seasonal tune-up, or complete system replacement, our skilled technicians are ready to help. We pride ourselves on honest service, upfront pricing, and quality workmanship that keeps your home comfortable year-round.
+              <br />
+              <span className='font-bold'>Don't sweat it. Don't freeze. Call Repair-It Raccoon!</span>
+            </p>
+            <p className="text-[#2C3440] mb-8">
+              Explore the locations we serve and discover why homeowners and businesses trust Repair-It Raccoon for fast, reliable HVAC service.
+            </p>
+            <div className="flex mb-8 gap-2 flex-wrap">
+              {SERVICE_AREA_CITIES.map((s) => (
+                <div key={s} className="bg-white border border-[#d4dbe6] rounded-xl py-1.5 px-2.5 w-fit">
+                  <p className="text-[#0A3B8A] font-nomal text-sm mb-1 whitespace-nowrap" style={{ fontFamily: 'var(--font-display)' }}>
+                    {s}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-3 bg-[#0A3B8A] hover:bg-[#0b2f5d] text-white font-bold px-7 py-4 rounded-xl transition-colors"
+              style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
+            >
+              SCHEDULE A CALL
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+          <motion.div
+            initial={{ x: -100, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="relative">
+              
+              <div className="relative rounded-2xl aspect-[4/3] bg-[url('/images/aboutus.webp')] w-full h-full bg-contain bg-center bg-no-repeat">
+                
+                
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-[#D91F26] text-white rounded-2xl p-6 shadow-xl">
+                <div className="text-4xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>20+</div>
+                <div className="text-xs font-bold tracking-widest mt-1" style={{ fontFamily: 'var(--font-display)' }}>
+                  YEARS OF
+                  <br />
+                  EXCELLENCE
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        
+      </section>
+
+      
+
       {/* ── TESTIMONIALS ── */}
-      <section id="reviews" className="py-24 bg-[#f8f9fc]">
+      <section id="reviews" className="py-24 bg-[#8A8F98]/15">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+            <p className="text-[#e31e24] text-xs font-bold tracking-widest mb-3 bg-white w-fit px-2 py-0.5 shadow-sm mx-auto" style={{ fontFamily: 'var(--font-display)' }}>
               CUSTOMER TESTIMONIALS
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-[#0f3460]" style={{ fontFamily: 'var(--font-display)' }}>
-              What Our Customers Say
+              What Customers Are Saying About Repair It Raccon
             </h2>
           </div>
           <motion.div
@@ -552,9 +490,7 @@ export default function HomePage() {
                 variants={item}
                 className="bg-white border border-[#d4dbe6] rounded-xl p-7 flex flex-col gap-4"
               >
-                <StarRating count={t.rating} />
-                <p className="text-[#0d1b2e] text-sm leading-relaxed flex-1">&ldquo;{t.text}&rdquo;</p>
-                <div className="flex items-center gap-3 border-t border-[#d4dbe6] pt-4">
+                <div className="flex items-center gap-3">
                   <Image 
                     src={t.image}
                     height={100}
@@ -563,13 +499,16 @@ export default function HomePage() {
                     className="w-10 h-auto rounded-full"
                   />
                   <div>
-                    <p className="text-[#0f3460] font-bold text-sm" style={{ fontFamily: 'var(--font-display)' }}>
+                    <p className="text-[#0f3460] font-bold text-base" style={{ fontFamily: 'var(--font-display)' }}>
                       {t.name}
                     </p>
-                    <p className="text-[#5a6778] text-xs">{t.location}</p>
+                    <p className="text-[#2C3440] text-sm">{t.location}</p>
                   </div>
                   
                 </div>
+                <StarRating count={t.rating} />
+                <p className="text-[#0d1b2e] text-base leading-relaxed flex-1">&ldquo;{t.text}&rdquo;</p>
+                
               </motion.div>
             ))}
           </motion.div>
@@ -581,10 +520,10 @@ export default function HomePage() {
             ].map((p) => (
               <div key={p.platform} className="flex items-center gap-3 bg-white border border-[#d4dbe6] rounded-full px-5 py-3">
                 <StarRating count={5} />
-                <span className="text-[#0f3460] font-bold text-sm" style={{ fontFamily: 'var(--font-display)' }}>
+                <span className="text-[#0f3460] font-bold text-base" style={{ fontFamily: 'var(--font-display)' }}>
                   {p.rating}
                 </span>
-                <span className="text-[#5a6778] text-xs">
+                <span className="text-[#2C3440] text-sm">
                   {p.platform} · {p.count}
                 </span>
               </div>
@@ -594,13 +533,13 @@ export default function HomePage() {
       </section>
 
       {/* ── MAINTENANCE PLAN CTA ── */}
-      <section className="py-20 bg-[#0a1e38] relative overflow-hidden">
+      <section className="py-20 bg-[#041D45] relative overflow-hidden">
         <div
           className="absolute inset-0 opacity-5"
           style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}
         />
         <div className="relative max-w-4xl mx-auto px-6 text-center">
-          <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+          <p className="text-[#e31e24] text-xs font-bold tracking-widest mb-4 bg-white w-fit px-2 py-0.5 shadow-sm mx-auto" style={{ fontFamily: 'var(--font-display)' }}>
             HVAC Innovation Promotions
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>
@@ -633,7 +572,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-4 pt-5">
             <Link
               href="/promotions"
-              className="bg-[#D91F26] hover:bg-[#b92127] text-white font-bold px-8 py-4 rounded shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+              className="bg-[#D91F26] hover:bg-[#b92127] text-white font-bold px-8 py-4 rounded-xl shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
               style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
             >
               VIEW ALL OFFERS
@@ -650,24 +589,24 @@ export default function HomePage() {
       </section>
 
       {/* ── CONTACT ── */}
-      <section id="contact" className="py-24 bg-white">
+      <section id="contact" className="py-24 bg-[#8A8F98]/15">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-start">
           <div>
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3 bg-white w-fit px-2 py-0.5 shadow-sm" style={{ fontFamily: 'var(--font-display)' }}>
               GET IN TOUCH
             </p>
             <h2 className="text-4xl md:text-5xl font-bold text-[#0f3460] leading-tight mb-6" style={{ fontFamily: 'var(--font-display)' }}>
               Ready to Get Started?
             </h2>
-            <p className="text-[#5a6778] leading-relaxed mb-10">
+            <p className="text-[#2C3440] text-lg leading-relaxed mb-10">
               Request a free estimate or schedule a visit. We respond to every message within an hour during
               business hours.
             </p>
-            <div className="space-y-5">
+            <div className="space-y-5 text-base">
               {[
                 {
                   icon: (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="#0A3B8A" strokeWidth={2} viewBox="0 0 24 24">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
                   ),
@@ -676,7 +615,7 @@ export default function HomePage() {
                 },
                 {
                   icon: (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="#0A3B8A" strokeWidth={2} viewBox="0 0 24 24">
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                       <polyline points="22,6 12,13 2,6" />
                     </svg>
@@ -686,7 +625,7 @@ export default function HomePage() {
                 },
                 {
                   icon: (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="#0A3B8A" strokeWidth={2} viewBox="0 0 24 24">
                       <circle cx="12" cy="10" r="3" />
                       <path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.05 11.5 7.35 11.76a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 10a8 8 0 0 0-8-8z" />
                     </svg>
@@ -698,7 +637,7 @@ export default function HomePage() {
                 },
                 {
                   icon: (
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <svg className="w-5 h-5" fill="none" stroke="#0A3B8A" strokeWidth={2} viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" />
                       <polyline points="12 6 12 12 16 14" />
                     </svg>
@@ -724,7 +663,7 @@ export default function HomePage() {
                   }
                   
                   <div>
-                    <p className="text-[#5a6778] text-xs font-bold tracking-widest" style={{ fontFamily: 'var(--font-display)' }}>
+                    <p className="text-[#2C3440] text-sm font-bold tracking-widest" style={{ fontFamily: 'var(--font-display)' }}>
                       {item.label.toUpperCase()}
                     </p>
                     <p className="text-[#0d1b2e] font-medium text-sm mt-0.5">{item.value}</p>
@@ -749,7 +688,7 @@ export default function HomePage() {
 
           </div>
 
-          <div className="bg-[#f8f9fc] border border-[#d4dbe6] rounded-2xl p-8">
+          <div className="bg-[#ffffff] border border-[#d4dbe6] rounded-2xl p-8 mt-8">
             {submitted ? (
               <div className="text-center py-12">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -760,11 +699,11 @@ export default function HomePage() {
                 <h3 className="text-2xl font-bold text-[#0f3460] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
                   Message Sent!
                 </h3>
-                <p className="text-[#5a6778]">We&apos;ll reach out within the hour.</p>
+                <p className="text-[#2C3440]">We&apos;ll reach out within the hour.</p>
               </div>
             ) : (
               <>
-                <h3 className="text-2xl font-bold text-[#0f3460] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+                <h3 className="text-2xl font-bold text-[#0A3B8A] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
                   Request Your Free Estimate
                 </h3>
                 <form
@@ -808,7 +747,7 @@ export default function HomePage() {
                 >
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
+                      <label className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
                         NAME
                       </label>
                       <input
@@ -821,7 +760,7 @@ export default function HomePage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
+                      <label className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
                         PHONE
                       </label>
                       <input
@@ -835,7 +774,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
+                    <label className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
                       EMAIL
                     </label>
                     <input
@@ -849,7 +788,7 @@ export default function HomePage() {
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
+                      <label className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
                         ADDRES
                       </label>
                       <input
@@ -862,7 +801,7 @@ export default function HomePage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
+                      <label className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
                         ZIP CODE
                       </label>
                       <input
@@ -877,7 +816,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <label
-                      className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5"
+                      className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
                       SERVICE NEEDED
@@ -946,8 +885,8 @@ export default function HomePage() {
                         }
                         className={`px-3 py-2 text-xs rounded-lg border transition-colors ${
                           formData.requestType === item.value
-                            ? 'bg-[#0f3460] text-white border-[#0f3460]'
-                            : 'bg-white text-[#0f3460] border-[#d4dbe6]'
+                            ? 'bg-[#0A3B8A] text-white border-[#0A3B8A]'
+                            : 'bg-white text-[#0A3B8A] border-[#d4dbe6]'
                         }`}
                       >
                         {item.label}
@@ -957,7 +896,7 @@ export default function HomePage() {
 
                   <div className="mt-3">
                     <label
-                      className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5"
+                      className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5"
                       style={{ fontFamily: "var(--font-display)" }}
                     >
                       PREFERRED DATE
@@ -979,7 +918,7 @@ export default function HomePage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-[#5a6778] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
+                    <label className="block text-xs font-bold text-[#2C3440] tracking-wider mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
                       MESSAGE
                     </label>
                     <textarea
@@ -997,7 +936,7 @@ export default function HomePage() {
                   >
                     SEND REQUEST
                   </button>
-                  <p className="text-center text-xs text-[#5a6778]">
+                  <p className="text-center text-xs text-[#2C3440]">
                     Or call us: <a href="tel:+17035550192" className="text-[#0f3460] font-semibold hover:underline">{BUSINESS_PHONE_DISPLAY}</a>
                   </p>
                 </form>

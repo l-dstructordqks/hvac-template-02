@@ -18,7 +18,7 @@ export function ServiceCardGrid({ items }: { items: ServiceLinkCard[] }) {
           <h3 className="text-xl font-bold text-[#0f3460] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
             {s.title}
           </h3>
-          <p className="text-[#5a6778] text-sm leading-relaxed flex-1">{s.desc}</p>
+          <p className="text-[#2C3440] text-sm leading-relaxed flex-1">{s.desc}</p>
           <div className="mt-5 flex items-center gap-2 text-[#e8420a] text-sm font-semibold" style={{ fontFamily: 'var(--font-display)' }}>
             LEARN MORE
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">

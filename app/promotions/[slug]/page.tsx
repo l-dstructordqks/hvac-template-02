@@ -111,7 +111,7 @@ export default async function PromotionDetailPage({ params }: Props) {
             <h2 className="text-2xl font-bold text-[#0f3460] mb-3" style={{ fontFamily: 'var(--font-display)' }}>
               Ready to claim this offer?
             </h2>
-            <p className="text-[#5a6778] mb-6">
+            <p className="text-[#2C3440] mb-6">
               Mention this coupon when you schedule online or call — our team will confirm eligibility and apply it
               to your service.
             </p>
@@ -133,7 +133,7 @@ export default async function PromotionDetailPage({ params }: Props) {
             </div>
           </div>
 
-          <p className="text-[#5a6778]/70 text-xs text-center mt-8">
+          <p className="text-[#2C3440]/70 text-xs text-center mt-8">
             Terms: Offer cannot be combined with other discounts. Valid for residential customers in our Northern
             Virginia and Maryland service area only. Ask a ProAir HVAC representative for full details.
           </p>

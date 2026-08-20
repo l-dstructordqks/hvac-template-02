@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { JsonLd, offerSchema, BUSINESS_URL } from '@/lib/schema'
+import Image from 'next/image'
 
 export interface PromoCardProps {
   /** e.g. "Plumbing Services" — shown in the header bar */
@@ -84,7 +85,7 @@ export function PromoCard({
       )}
 
       {/* Header bar */}
-      <div className="bg-[#0f3460] text-white font-bold py-4 px-6 ">
+      <div className="bg-[#0A3B8A] text-white font-bold py-4 px-6 ">
         <p
           style={{ fontFamily: 'var(--font-display)' }}
         >
@@ -93,28 +94,40 @@ export function PromoCard({
       </div>
 
       {/* Body */}
-      <div className="px-6 py-6 text-left">
-        <h3
-          className="text-[#0f3460] text-4xl font-bold mb-3"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          {/^(save|off|free)\b/i.test(amount) || /\b(off|free)\b/i.test(amount) ? amount : `Save ${amount}`}
-        </h3>
-        <p className="text-[#5a6778] text-base leading-relaxed mb-2">{description}</p>
-        {/* Visible expiration date: matters for SEO/GEO trust signals (a
-            promo with no visible end date reads as stale/unverifiable to
-            both users and crawlers) and it's required for FTC-style ad
-            disclosure in most US states. */}
-        <p className="text-[#5a6778]/70 text-xs mb-6">
-          Offer valid through {new Date(validThrough).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.
-        </p>
-        
+      <div className='grid grid-cols-10 px-6 py-6 gap-2'>
+        <Image 
+          src={'/images/raccon.webp'}
+          height={100}
+          width={100}
+          alt='reviewerporfile photo'
+          className="w-full h-auto col-span-4"
+        />
+        <div className="text-left col-span-6">
+          <h3
+            className="text-[#0f3460] text-4xl font-bold mb-3"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
+            {/^(save|off|free)\b/i.test(amount) || /\b(off|free)\b/i.test(amount) ? amount : `Save ${amount}`}
+          </h3>
+          <p className="text-[#2C3440] text-base leading-relaxed mb-2">{description}</p>
+          {/* Visible expiration date: matters for SEO/GEO trust signals (a
+              promo with no visible end date reads as stale/unverifiable to
+              both users and crawlers) and it's required for FTC-style ad
+              disclosure in most US states. */}
+          <p className="text-[#2C3440]/70 text-xs mb-2">
+            Offer valid through {new Date(validThrough).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.
+          </p>
+          
 
-        <div className="flex flex-col gap-3">
+          
+        </div>
+      </div>
+      
+      <div className="flex flex-col gap-3 p-3 pt-0">
           {!home && 
             <Link
               href={primaryCta.href}
-              className="w-full text-center bg-[#D91F26] hover:bg-[#b92127] text-white font-bold py-3 rounded transition-colors text-sm"
+              className="w-full text-center bg-[#D91F26] hover:bg-[#b92127] text-white font-bold py-3 rounded-xl transition-colors text-sm"
               style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
             >
               {primaryCta.label.toUpperCase()}
@@ -124,14 +137,13 @@ export function PromoCard({
           {secondaryCta && (
             <Link
               href={secondaryCta.href}
-              className="w-full text-center border border-[#0f3460] hover:bg-[#0f3460] hover:text-white text-[#0f3460] font-bold py-3 rounded text-sm  shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
+              className="w-full text-center border border-[#0A3B8A] hover:bg-[#0A3B8A] hover:text-white text-[#0A3B8A] font-bold py-3 rounded-xl text-sm  shadow-md transform transition duration-300 ease-out hover:-translate-y-1 hover:shadow-xl"
               style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
             >
               {secondaryCta.label.toUpperCase()}
             </Link>
           )}
         </div>
-      </div>
     </div>
   )
 }

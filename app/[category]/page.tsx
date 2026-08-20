@@ -41,29 +41,32 @@ export default async function CategoryPage(
 
   const category = findCategory(slug)
   if (!category) notFound()
+  
 
   const url = `${BUSINESS_URL}/${category.slug}`
 
-  return (
-    <>
-      <JsonLd
-        data={[
-          breadcrumbSchema([
-            { name: 'Home', url: BUSINESS_URL },
-            { name: category.label, url },
-          ]),
-          collectionPageSchema({
-            name: `${category.label} Services`,
-            description: category.navBlurb,
-            url,
-            items: category.services.map((s) => ({
-              name: s.label,
-              url: `${url}/${s.slug}`,
-            })),
-          }),
-        ]}
-      />
-      <CategoryHub category={category} />
-    </>
-  )
+  
+    return (
+      <>
+        <JsonLd
+          data={[
+            breadcrumbSchema([
+              { name: 'Home', url: BUSINESS_URL },
+              { name: category.label, url },
+            ]),
+            collectionPageSchema({
+              name: `${category.label} Services`,
+              description: category.navBlurb,
+              url,
+              items: category.services.map((s) => ({
+                name: s.label,
+                url: `${url}/${s.slug}`,
+              })),
+            }),
+          ]}
+        />
+        <CategoryHub category={category} />
+      </>
+    )
+  
 }

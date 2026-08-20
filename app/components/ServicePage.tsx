@@ -4,6 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { faqSchema, breadcrumbSchema, JsonLd } from '@/lib/schema'
 import { ServiceCardGrid, type ServiceLinkCard } from './ServiceCardGrid'
+import Image from 'next/image'
+import { Minus, Plus } from 'lucide-react'
 
 export interface ServicePageProps {
   badge: string
@@ -12,6 +14,11 @@ export interface ServicePageProps {
   heroImg: string
   heroImgAlt: string
   intro: string
+  signTitle: string
+  signs: string[]
+  signTitleDesc: string
+  signDescription?: string
+  signImg: string
   benefits: { icon: React.ReactNode; title: string; desc: string }[]
   process: { step: string; title: string; desc: string; image: string }[]
   faqs: { q: string; a: string }[]
@@ -43,6 +50,11 @@ export function ServicePage({
   heroImg,
   heroImgAlt,
   intro,
+  signTitle,
+  signs,
+  signTitleDesc,
+  signDescription,
+  signImg,
   benefits,
   process,
   faqs,
@@ -67,48 +79,49 @@ export function ServicePage({
       {breadcrumbItems && <JsonLd data={breadcrumbSchema(breadcrumbItems)} />}
 
       {/* ── HERO ── */}
-      <section className="relative min-h-[60vh] flex items-end bg-[#0a1e38] overflow-hidden">
-        <img src={heroImg} alt={heroImgAlt} className="absolute inset-0 w-full h-full object-cover opacity-35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a1e38] via-[#0a1e38]/60 to-transparent" />
-        <div className="relative max-w-7xl mx-auto px-6 pb-16 pt-32 w-full">
+      <section className="relative min-h-[50vh] flex items-end overflow-hidden bg-[#0a1e38]">
+        <div className="absolute inset-0 overflow-hidden min-h-[50vh]">
+          
+          <img
+            src={heroImg} alt={heroImgAlt}
+            className="w-full h-full object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-[#8A8F98]/10 via-[#8A8F98]/10 to-transparent" />
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-6 pb-16 pt-15 w-full z-10">
           <nav
-            className="flex items-center gap-2 text-white/50 text-xs mb-6"
+            className="flex items-center gap-2 text-[#0a3b8a]/90 text-xs mb-6 bg-white/60 w-fit px-2 py-0.5 shadow-sm"
             style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}
             aria-label="Breadcrumb"
           >
-            <Link href="/" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-[#0a3b8a] transition-colors">
               HOME
             </Link>
             <span>/</span>
-            <Link href="/#services" className="hover:text-white transition-colors">
+            <Link href="/#services" className="hover:text-[#0a3b8a] transition-colors">
               SERVICES
             </Link>
             <span>/</span>
-            <span className="text-white/80 font-bold">{badge.toUpperCase()}</span>
+            <span className="text-[#0a3b8a] font-bold">{badge.toUpperCase()}</span>
           </nav>
-          <div
-            className="inline-flex items-center gap-2 text-[#f5a623] text-xs font-bold px-4 py-1.5 rounded-full mb-4 tracking-widest"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            <span className="w-1.5 h-1.5 bg-[#f5a623] rounded-full" />
-            {badge}
-          </div>
+          
           {/* H1: single, keyword-forward — the primary on-page SEO signal */}
           <h1 className="text-4xl md:text-6xl font-bold text-white leading-none mb-4 whitespace-pre-line" style={{ fontFamily: 'var(--font-display)' }}>
-            {title}
+            Schedule your {title} Today
           </h1>
-          <p className="text-white/70 text-xl max-w-2xl leading-relaxed">{subtitle}</p>
+          <p className="text-white/90 text-xl max-w-2xl leading-relaxed">{subtitle}</p>
           <div className="flex flex-wrap gap-4 mt-8">
             <a
               href="#quote"
-              className="bg-[#D91F26] hover:bg-[#b92127] text-white font-bold px-7 py-3.5 rounded transition-colors"
+              className="bg-[#D91F26] hover:bg-[#b92127] text-white font-bold px-5 py-2.5 rounded-xl transition-colors"
               style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
             >
               GET A FREE ESTIMATE
             </a>
             <a
               href="tel:+17035550192"
-              className="border border-white/30 hover:border-white text-white font-semibold px-7 py-3.5 rounded transition-colors flex items-center gap-2"
+              className="border border-white/30 hover:border-white text-white font-semibold px-5 py-2.5 rounded-xl transition-colors flex items-center gap-2"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -121,19 +134,17 @@ export function ServicePage({
       </section>
 
       {/* ── INTRO + QUICK QUOTE ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+      <section className="pt-20 bg-[#8A8F98]/15">
+        <div className="max-w-7xl mx-auto px-10 grid md:grid-cols-3 gap-12 items-center">
           <div className="md:col-span-2">
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
-              SERVICE OVERVIEW
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
+            
+            <h2 className="text-3xl md:text-4xl font-bold text-[#062A63] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
               Why homeowners choose ProAir HVAC
             </h2>
-            <p className="text-[#5a6778] leading-relaxed text-base">{intro}</p>
+            <p className="text-[#2C3440] leading-relaxed text-lg">{intro}</p>
             <div className="mt-8 flex flex-wrap gap-4">
               {['NATE-certified technicians', 'Upfront pricing', 'Satisfaction guarantee', 'Same-day service'].map((t) => (
-                <div key={t} className="flex items-center gap-2 text-sm text-[#0d1b2e]">
+                <div key={t} className="flex items-center gap-2 text-sm text-[#2c3440]">
                   <svg className="w-4 h-4 text-[#f5a623] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path
                       fillRule="evenodd"
@@ -147,7 +158,7 @@ export function ServicePage({
             </div>
           </div>
 
-          <div id="quote" className="bg-[#f8f9fc] border border-[#d4dbe6] rounded-2xl p-6">
+          <div id="quote" className="bg-[#fff] border border-[#d4dbe6] rounded-2xl p-6">
             {sent ? (
               <div className="text-center py-8">
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -158,11 +169,11 @@ export function ServicePage({
                 <h3 className="text-lg font-bold text-[#0f3460] mb-1" style={{ fontFamily: 'var(--font-display)' }}>
                   Message Sent!
                 </h3>
-                <p className="text-[#5a6778] text-sm">We&apos;ll reach out within the hour.</p>
+                <p className="text-[#2C3440] text-sm">We&apos;ll reach out within the hour.</p>
               </div>
             ) : (
               <>
-                <h3 className="text-lg font-bold text-[#0f3460] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+                <h3 className="text-lg font-bold text-[#0a3b8a] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                   Get a Free Fast Quote
                 </h3>
                 <form
@@ -189,7 +200,7 @@ export function ServicePage({
                     className="w-full bg-white border border-[#d4dbe6] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#0f3460]"
                   />
                   <textarea
-                    rows={3}
+                    rows={2}
                     placeholder="Tell us about your system..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -202,7 +213,7 @@ export function ServicePage({
                   >
                     REQUEST ESTIMATE
                   </button>
-                  <p className="text-center text-xs text-[#5a6778]">Response within 1 hour</p>
+                  <p className="text-center text-xs text-[#2C3440]">Response within 1 hour</p>
                 </form>
               </>
             )}
@@ -211,33 +222,68 @@ export function ServicePage({
       </section>
 
       {/* ── BENEFITS ── */}
-      <section className="py-20 bg-[#f8f9fc]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
-              WHAT&apos;S INCLUDED
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460]" style={{ fontFamily: 'var(--font-display)' }}>
-              Everything you need, in one place
-            </h2>
+      <section className="py-20 bg-[#8A8F98]/15">
+        <div className="max-w-screen-xl w-full px-10 md:px-20 mx-auto flex flex-col md:grid md:grid-cols-11 gap-10 md:gap-16">
+
+          {/* Imagen */}
+          <div className="col-span-4 w-full aspect-square min-w-0 rounded-xl overflow-hidden">
+            <img
+              src={signImg}
+              alt="benefits image"
+              className="w-full h-full object-cover rounded-xl"
+            />
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {benefits.map((b) => (
-              <div
-                key={b.title}
-                className="bg-white border border-[#d4dbe6] rounded-xl p-6 flex gap-4 group hover:border-[#0f3460]/40 hover:shadow-md transition-all"
-              >
-                <div className="w-12 h-12 bg-[#eef1f6] group-hover:bg-[#0f3460] rounded-xl flex items-center justify-center flex-shrink-0 text-[#0f3460] group-hover:text-white transition-colors">
-                  {b.icon}
-                </div>
-                <div>
-                  <h3 className="text-[#0f3460] font-bold text-base mb-1" style={{ fontFamily: 'var(--font-display)' }}>
+
+          {/* Contenido */}
+          <div className="col-span-7 min-w-0 text-[#2C3440]">
+
+            <p
+              className="text-[#e31e24] text-xs font-bold tracking-widest mb-4 bg-white w-fit max-w-full px-2 py-0.5 shadow-sm uppercase"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              Know the Signs
+            </p>
+
+            <h2
+              className="text-3xl md:text-4xl font-bold text-[#062A63] mb-5 break-words"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              {signTitle}:
+            </h2>
+
+            <ul className="py-3 pl-5 text-[#2C3440] flex flex-col gap-1.5 text-lg min-w-0">
+              {signs?.map((s) => (
+                <li key={s} className="break-words">
+                  {s}
+                </li>
+              ))}
+            </ul>
+
+            <p className="text-lg text-[#2C3440] font-semibold py-2 break-words">
+              {signTitleDesc}
+            </p>
+
+            <p className="break-words">
+              {signDescription}
+            </p>
+
+            {/* Benefits */}
+            <div className="flex gap-3 mt-5 flex-wrap min-w-0">
+              {benefits.map((b) => (
+                <div
+                  key={b.title}
+                  className="bg-white border border-[#d4dbe6] rounded-xl py-1.5 px-2 flex gap-3 max-w-full min-w-0 group hover:border-[#0f3460]/40 hover:shadow-md transition-all"
+                >
+                  <p
+                    className="text-[#0a3b8a] font-bold text-sm px-3 py-1 rounded-full break-words whitespace-normal"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
                     {b.title}
-                  </h3>
-                  <p className="text-[#5a6778] text-sm leading-relaxed">{b.desc}</p>
+                  </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
@@ -247,7 +293,7 @@ export function ServicePage({
         <section className="py-20 bg-white border-t border-[#d4dbe6]">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+              <p className="text-[#e31e24] text-xs font-bold tracking-widest mb-4 bg-white w-fit px-2 py-0.5 shadow-sm uppercase" style={{ fontFamily: 'var(--font-display)' }}>
                 {badge.toUpperCase()} SERVICES
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460]" style={{ fontFamily: 'var(--font-display)' }}>
@@ -260,36 +306,32 @@ export function ServicePage({
       )}
 
       {/* ── PROCESS ── */}
-      <section className="pt-20 bg-white">
-        <div className="max-w-7xl mx-auto px-0">
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-10">
           <div className="text-center mb-12">
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+            <p className="text-[#e31e24] text-xs font-bold tracking-widest mb-4 bg-white w-fit px-2 py-0.5 shadow-sm uppercase" style={{ fontFamily: 'var(--font-display)' }}>
               HOW WE WORK
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460]" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460] text-left" style={{ fontFamily: 'var(--font-display)' }}>
               Our Process
             </h2>
           </div>
-          <div className="grid md:grid-cols-4 gap-0">
+          <div className="grid md:grid-cols-4 gap-4 max-w-screen-xl px-10">
             {process.map((p) => (
               
-              <div key={p.step} className="relative flex flex-col items-center bg-center bg-cover py-19" style={{
+              <div key={p.step} className="relative flex flex-col items-center bg-center bg-cover py-19 rounded-xl bg-[#0a1e38] opacity-90" style={{
                 backgroundImage: `url(${p.image})`,
                 minHeight: "300px",
               }}>
-                <div className="absolute inset-0 bg-linear-to-t from-[#0a1e38]/90 via-[#0a1e38]/60 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#0a1e38]/90 via-[#0a1e38]/60 to-transparent rounded-xl" />
                 {/*i < process.length - 1 && 
                 <div className="hidden md:block absolute top-6 left-[60%] w-full h-px bg-[#f5a623]/70"/>*/}
-                <div
-                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-[#0f3460] font-bold text-lg mb-4 relative z-10"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  {p.step}
-                </div>
-                <h3 className="text-white font-bold text-base mb-2 z-2" style={{ fontFamily: 'var(--font-display)' }}>
+                
+                <h4 className='text-white z-5 text-3xl font-bold text-shadow-black/10 text-shadow-sm'>0{p.step}</h4>
+                <h3 className="text-white font-bold text-base mb-2 z-2 text-shadow-black/10 text-shadow-sm" style={{ fontFamily: 'var(--font-display)' }}>
                   {p.title}
                 </h3>
-                <p className="text-white/70 px-4 text-sm leading-relaxed text-center z-2">{p.desc}</p>
+                <p className="text-white/90 px-4 text-base leading-relaxed text-center z-2">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -297,22 +339,22 @@ export function ServicePage({
       </section>
 
       {/* ── TESTIMONIAL ── */}
-      <section className="py-16 bg-white border-y border-[#d4dbe6]">
+      <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <StarRating count={5} />
-          <blockquote className="mt-4 text-xl md:text-2xl font-medium text-[#0f3460] leading-snug" style={{ fontFamily: 'var(--font-display)' }}>
+          <blockquote className="mt-4 text-xl md:text-2xl font-medium text-[#0a3b8a] leading-snug" style={{ fontFamily: 'var(--font-display)' }}>
             &ldquo;ProAir showed up the same day I called. The technician was professional, explained everything
             clearly, and the price matched the quote exactly. Highly recommended.&rdquo;
           </blockquote>
-          <p className="mt-4 text-[#5a6778] text-sm">— Maria Rodriguez, Fairfax, VA</p>
+          <p className="mt-4 text-[#2C3440] text-sm">— Maria Rodriguez, Fairfax, VA</p>
         </div>
       </section>
 
       {/* ── FAQ ── */}
-      <section className="py-20 bg-[#f8f9fc]">
+      <section className="py-20 bg-[#8A8F98]/15">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
-            <p className="text-[#D91F26] text-xs font-bold tracking-widest mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+            <p className="text-[#e31e24] text-xs font-bold tracking-widest mb-4 bg-white w-fit px-2 py-0.5 shadow-sm uppercase mx-auto" style={{ fontFamily: 'var(--font-display)' }}>
               FREQUENTLY ASKED QUESTIONS
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460]" style={{ fontFamily: 'var(--font-display)' }}>
@@ -327,22 +369,19 @@ export function ServicePage({
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   aria-expanded={openFaq === i}
                 >
-                  <span className="font-semibold text-[#0f3460] text-sm pr-4" style={{ fontFamily: 'var(--font-display)' }}>
+                  <span className="font-semibold text-[#0a3b8a] text-lg pr-4" style={{ fontFamily: 'var(--font-display)' }}>
                     {faq.q}
                   </span>
-                  <svg
-                    className={`w-5 h-5 text-[#D91F26] flex-shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
+                  {openFaq === i ? 
+                    <Minus width={50} height={20} className='text-[#0a3b8a]'/>  
+                    :
+                    <Plus width={50} height={20} className='text-[#0a3b8a]'/>
+                  }
+                  
                 </button>
                 {openFaq === i && (
                   <div className="px-6 pb-5">
-                    <p className="text-[#5a6778] text-sm leading-relaxed">{faq.a}</p>
+                    <p className="text-[#2C3440] text-base leading-relaxed">{faq.a}</p>
                   </div>
                 )}
               </div>
@@ -352,9 +391,9 @@ export function ServicePage({
       </section>
 
       {/* ── RELATED SERVICES ── */}
-      <section className="py-12 bg-white border-t border-[#d4dbe6]">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-[#5a6778] text-xs font-bold tracking-widest mb-5" style={{ fontFamily: 'var(--font-display)' }}>
+      <section className="py-12 bg-[#8A8F98]/15">
+        <div className="max-w-7xl mx-auto px-10">
+          <p className="text-[#2C3440] text-base font-bold tracking-widest mb-5" style={{ fontFamily: 'var(--font-display)' }}>
             OTHER SERVICES
           </p>
           <div className="flex flex-wrap gap-3">
@@ -362,7 +401,7 @@ export function ServicePage({
               <Link
                 key={l.href}
                 href={l.href}
-                className="inline-flex items-center gap-2 border border-[#d4dbe6] hover:border-[#0f3460] text-[#0f3460] text-sm font-semibold px-5 py-2.5 rounded-full transition-colors group"
+                className="inline-flex items-center gap-2 border border-[#d4dbe6] hover:border-[#0a3b8a] text-[#0a3b8a] text-sm font-semibold px-5 py-2.5 rounded-full transition-colors group bg-white"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 {l.label}
@@ -385,12 +424,12 @@ export function ServicePage({
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="#quote"
-              className="bg-white text-[#D91F26] font-bold px-8 py-4 rounded hover:bg-white/90 transition-colors"
+              className="bg-white text-[#D91F26] font-bold px-5 py-2.5 rounded-xl hover:bg-white/90 transition-colors"
               style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
             >
               FREE ESTIMATE
             </a>
-            <a href="tel:+17035550192" className="border-2 border-white text-white font-bold px-8 py-4 rounded hover:bg-white/10 transition-colors" style={{ fontFamily: 'var(--font-display)' }}>
+            <a href="tel:+17035550192" className="border-2 border-white text-white font-bold px-5 py-2.5 rounded-xl hover:bg-white/10 transition-colors" style={{ fontFamily: 'var(--font-display)' }}>
               CALL NOW
             </a>
           </div>

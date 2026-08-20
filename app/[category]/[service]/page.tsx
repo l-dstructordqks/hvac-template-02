@@ -96,6 +96,13 @@ export default async function ServiceDetailPage(
         heroImg={content.heroImg}
         heroImgAlt={content.heroImgAlt}
         intro={content.intro}
+
+        signTitle={content.signTitle}
+        signs={content.signs}
+        signTitleDesc={content.signTitleDesc}
+        signDescription={content.signDescription}
+        signImg={content.signImg}
+
         benefits={content.benefits}
         process={PROCESS}
         faqs={content.faqs}

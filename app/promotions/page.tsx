@@ -59,7 +59,7 @@ export default function PromotionsPage() {
       <section className="py-20 bg-[#f8f9fc]">
         <div className="max-w-7xl mx-auto px-6">
           {activePromotions.length === 0 ? (
-            <p className="text-center text-[#5a6778]">No active promotions right now — check back soon, or call us for current pricing.</p>
+            <p className="text-center text-[#2C3440]">No active promotions right now — check back soon, or call us for current pricing.</p>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
               {activePromotions.map((p) => (

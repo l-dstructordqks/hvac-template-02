@@ -5,16 +5,16 @@
 // machine-readable summary of who we are, where we serve, and what we do,
 // which they lean on heavily when citing/recommending a business.
 
-export const BUSINESS_NAME = "HVAC Innovation"
-export const BUSINESS_LEGAL_NAME = "HVAC Innovation LLC"
-export const BUSINESS_PHONE = "+1-301-946-0700"
-export const BUSINESS_PHONE_DISPLAY = "(301) 946-0700"
-export const BUSINESS_EMAIL = "ben@hvacinnovation.net"
+export const BUSINESS_NAME = "Repair It Raccoon"
+export const BUSINESS_LEGAL_NAME = "Repair It Raccoon"
+export const BUSINESS_PHONE = "+1-301-946-0600"
+export const BUSINESS_PHONE_DISPLAY = "(301) 946-0600"
+export const BUSINESS_EMAIL = "reapairitraccoon@gmail.net"
 // TODO: confirm this is the live production domain before deploying —
 // used as metadataBase and as the canonical/url base in every schema block.
-export const BUSINESS_URL = "https://www.hvacinnovation.net"
+export const BUSINESS_URL = "http://localhost:3000/"
 //export const BUSINESS_URL = "http://localhost:3000/"
-export const FOUNDING_YEAR = "2004"
+export const FOUNDING_YEAR = "2008"
 export const BUSINESS_SCHEDULE_WEEK = "Mon–Fri 7am–7pm"
 export const BUSINESS_SCHEDULE_WEEKEND = "Sat 8am–5pm"
 
@@ -27,16 +27,27 @@ export const ADDRESS = {
 }
 
 export const SERVICE_AREA_CITIES = [
-  "Rockville",
-  "Silver Spring",
-  "Washington, DC",
-  "Alexandria",
-  "Herndon",
-  "Sterling",
-  "Fairfax",
-  "Arlington",
+  "Prosper",
+  "McKinney",
+  "Allen",
+  "Plano",
+  "Frisco",
+  "The Colony",
+  "Carrollton",
+  "Lewisville",
+  "Lake Dallas",
+  "Little Elm",
+  "Savannah",
+  "Denton",
+  "Corinth",
+  "Highland Village",
+  "Pilot Point",
+  "Addison",
+  "Richardson",
 ]
-export const SERVICE_AREA = ["Maryland", "Virginia", "District of Columbia"]
+export const SERVICE_AREA = [
+  "Frisco, TX"
+]
 
 
 
@@ -45,58 +56,175 @@ export function localBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "HVACBusiness",
+
     name: BUSINESS_NAME,
     legalName: BUSINESS_LEGAL_NAME,
+
     image: `${BUSINESS_URL}/og-image.jpg`,
     url: BUSINESS_URL,
+
     telephone: BUSINESS_PHONE,
     email: BUSINESS_EMAIL,
+
     priceRange: "$$",
+
     foundingDate: FOUNDING_YEAR,
-    areaServed: [
-      ...SERVICE_AREA.map((name) => ({ "@type": "State", name })),
-      ...SERVICE_AREA_CITIES.map((name) => ({ "@type": "City", name })),
-    ],
+
     address: {
       "@type": "PostalAddress",
       ...ADDRESS,
     },
+
+    areaServed: [
+      ...SERVICE_AREA.map((name) => ({
+        "@type": "Place",
+        name,
+      })),
+      ...SERVICE_AREA_CITIES.map((name) => ({
+        "@type": "City",
+        name,
+      })),
+    ],
+
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+        ],
         opens: "07:30",
         closes: "16:30",
       },
       {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Saturday"],
-        opens: "07:30",
-        closes: "13:30",
+        opens: "08:30",
+        closes: "17:30",
       },
     ],
+
     sameAs: [],
+
+    serviceType: [
+      "Air Conditioning Repair",
+      "Air Conditioning Installation",
+      "Air Conditioning Maintenance",
+
+      "Heating Repair",
+
+      "Furnace Repair",
+      "Furnace Installation",
+      "Furnace Maintenance",
+
+      "Heat Pump Services",
+
+      "Commercial HVAC",
+
+      "Duct Work",
+    ],
+
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "HVAC, Solar & Home Improvement Services",
+      name: "HVAC Services",
       itemListElement: [
-        "Furnaces",
-        "Air Handlers",
-        "Air Conditioning",
-        "Heat Pumps",
-        "Boilers",
-        "Water Heaters",
-        "Roof Top Units",
-        "Ductless Heating and Cooling",
-        "Humidifiers",
-        "Thermostats",
-        "Air Cleaners",
-        "Solar Water Heating",
-        "Home Improvement",
-      ].map((name) => ({
-        "@type": "Offer",
-        itemOffered: { "@type": "Service", name },
-      })),
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Air Conditioning Repair",
+            url: `${BUSINESS_URL}/air-conditioning/repair`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Air Conditioning Installation",
+            url: `${BUSINESS_URL}/air-conditioning/installation`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Air Conditioning Maintenance",
+            url: `${BUSINESS_URL}/air-conditioning/maintenance`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Heating Repair",
+            url: `${BUSINESS_URL}/heating/repair`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Furnace Repair",
+            url: `${BUSINESS_URL}/heating/furnace-repair`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Furnace Installation",
+            url: `${BUSINESS_URL}/heating/furnace-installation`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Furnace Maintenance",
+            url: `${BUSINESS_URL}/heating/furnace-maintenance`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Heat Pump Services",
+            url: `${BUSINESS_URL}/heating/heat-pumps`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Commercial HVAC",
+            url: `${BUSINESS_URL}/hvac-services/commercial-hvac`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Duct Work",
+            url: `${BUSINESS_URL}/hvac-services/duct-work`,
+          },
+        },
+      ],
+    },
+
+    // TODO: UPDATE WITH REAL VALUES
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "...",
+      longitude: "...",
+    },
+
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "125",
     },
   }
 }
@@ -116,12 +244,20 @@ export function serviceSchema(opts: {
     url: opts.url,
     provider: {
       "@type": "HVACBusiness",
+      "@id": `${BUSINESS_URL}#business`,
       name: BUSINESS_NAME,
       telephone: BUSINESS_PHONE,
+      url: BUSINESS_URL,
     },
     areaServed: [
-      ...SERVICE_AREA.map((name) => ({ "@type": "State", name })),
-      ...SERVICE_AREA_CITIES.map((name) => ({ "@type": "City", name })),
+      ...SERVICE_AREA.map((name) => ({
+        "@type": "Place",
+        name,
+      })),
+      ...SERVICE_AREA_CITIES.map((name) => ({
+        "@type": "City",
+        name,
+      })),
     ],
   }
 }
@@ -147,7 +283,7 @@ export function offerSchema(opts: {
   price?: string
   priceCurrency?: string
   validFrom?: string // ISO date, e.g. "2026-07-01"
-  validThrough: string // ISO date — required: an offer without an end date
+  validThrough?: string // ISO date — required: an offer without an end date
   // is not verifiable/citable by search engines or AI answer engines.
   url: string
   serviceName?: string
@@ -175,29 +311,30 @@ export function offerSchema(opts: {
 
       name: opts.serviceName ?? opts.name,
     },
-    areaServed: SERVICE_AREA.map((name) => ({ "@type": "State", name })),
+    areaServed: SERVICE_AREA.map((name) => ({
+      "@type": "Place",
+      name,
+    })),
   }
 }
 
-export function breadcrumbSchema(items: {
-  name: string
-  url: string
-}[]) {
+export function breadcrumbSchema(
+  items: {
+    name: string;
+    url: string;
+  }[]
+) {
   return {
     "@context": "https://schema.org",
-
     "@type": "BreadcrumbList",
 
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
-
       position: index + 1,
-
       name: item.name,
-
       item: item.url,
     })),
-  }
+  };
 }
 
 export function collectionPageSchema(opts: { name: string; description: string; url: string; items: { name: string; url: string }[] }) {
@@ -228,4 +365,140 @@ export function JsonLd({ data }: { data: object | object[] }) {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   )
+}
+
+// MAINTENANCE PLANS
+export function maintenancePlansSchema(opts: {
+  name: string
+  description: string
+  url: string
+  plans: {
+    name: string
+    description: string
+    price: string
+    systems: number
+    duration: string
+  }[]
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${opts.url}#maintenance-plans`,
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+
+    about: {
+      "@type": "Service",
+      name: "HVAC Preventative Maintenance",
+      serviceType: "HVAC Maintenance",
+      provider: {
+        "@type": "HVACBusiness",
+        name: BUSINESS_NAME,
+        telephone: BUSINESS_PHONE,
+        url: BUSINESS_URL,
+      },
+    },
+
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: opts.plans.map((plan, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+
+        item: {
+          "@type": "Offer",
+          name: plan.name,
+          description: plan.description,
+          price: plan.price,
+          priceCurrency: "USD",
+
+          itemOffered: {
+            "@type": "Service",
+            name: `${plan.name} - ${plan.systems} ${
+              plan.systems === 1 ? "HVAC System" : "HVAC Systems"
+            }`,
+            serviceType: "HVAC Preventative Maintenance",
+            provider: {
+              "@type": "HVACBusiness",
+              name: BUSINESS_NAME,
+              telephone: BUSINESS_PHONE,
+            },
+          },
+
+          areaServed: [
+            {
+              "@type": "AdministrativeArea",
+              name: "North Dallas, TX",
+            },
+            {
+              "@type": "AdministrativeArea",
+              name: "Collin County, TX",
+            },
+            {
+              "@type": "AdministrativeArea",
+              name: "Denton County, TX",
+            },
+            ...SERVICE_AREA_CITIES.map((name) => ({
+              "@type": "City",
+              name: `${name}, TX`,
+            })),
+          ],
+        },
+      })),
+    },
+  }
+}
+
+// SERVICEAREAS
+export function serviceAreasSchema(opts: {
+  name: string
+  description: string
+  url: string
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${opts.url}#service-areas`,
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+
+    about: {
+      "@type": "HVACBusiness",
+      name: BUSINESS_NAME,
+      url: BUSINESS_URL,
+      telephone: BUSINESS_PHONE,
+      areaServed: [
+        {
+          "@type": "AdministrativeArea",
+          name: "North Dallas, TX",
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Collin County, TX",
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Denton County, TX",
+        },
+        ...SERVICE_AREA_CITIES.map((name) => ({
+          "@type": "City",
+          name: `${name}, TX`,
+        })),
+      ],
+    },
+
+    mainEntity: {
+      "@type": "ItemList",
+      name: "HVAC Service Areas",
+      numberOfItems: SERVICE_AREA_CITIES.length,
+
+      itemListElement: SERVICE_AREA_CITIES.map((city, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: `${city}, TX`,
+      })),
+    },
+  }
 }
