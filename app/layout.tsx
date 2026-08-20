@@ -4,6 +4,7 @@ import { SiteHeader, SiteFooter } from './components/SiteChrome'
 import { localBusinessSchema, JsonLd, BUSINESS_URL, BUSINESS_PHONE } from '@/lib/schema'
 import { Montserrat, Inter, Oswald, Barlow_Condensed } from 'next/font/google'
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next"
 
 const montserrat = Oswald({
   subsets: ['latin'],
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
             <p className='font-bold justify-center text-white text-xs' style={{ fontFamily: 'var(--font-display)' }}> CALL US</p>
           </div>
+          <Analytics />
         </main>
         <SiteFooter />
       </body>
