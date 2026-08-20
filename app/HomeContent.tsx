@@ -100,14 +100,14 @@ const TESTIMONIALS = [
     name: 'Patricia M.',
     location: 'Arlington, VA',
     rating: 5,
-    text: 'Our AC broke on the hottest day of the year. HVAC Innovation had a technician at our door within two hours. They diagnosed the problem, had the part on the truck, and we were cool again before dinner. Absolutely outstanding.',
+    text: 'Our AC broke on the hottest day of the year. Repair It Raccoon had a technician at our door within two hours. They diagnosed the problem, had the part on the truck, and we were cool again before dinner. Absolutely outstanding.',
     image: '/images/review01.jpg',
   },
   {
     name: 'David & Rosa K.',
     location: 'Fairfax, VA',
     rating: 5,
-    text: "We've been on HVAC Innovation's maintenance plan for six years. They always show up on time, explain everything clearly, and never try to sell us things we don't need. Honest, reliable people.",
+    text: "We've been on Repair It Raccoon's maintenance plan for six years. They always show up on time, explain everything clearly, and never try to sell us things we don't need. Honest, reliable people.",
     image: '/images/review00.jpg',
   },
   {
@@ -400,7 +400,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
           <div className='md:col-span-2'>
             <p className="text-[#E31E24] text-xs font-bold tracking-widest mb-3 bg-white w-fit px-2 py-0.5 shadow-sm" style={{ fontFamily: 'var(--font-display)' }}>
-              ABOUT HVAC INNOVATION
+              ABOUT Repair It Raccoon
             </p>
             {/* Written as a clear, citable "founded/who/where" statement — useful for
                 both human readers and GEO (AI answer engines quoting company facts). */}
@@ -540,7 +540,7 @@ export default function HomePage() {
         />
         <div className="relative max-w-4xl mx-auto px-6 text-center">
           <p className="text-[#e31e24] text-xs font-bold tracking-widest mb-4 bg-white w-fit px-2 py-0.5 shadow-sm mx-auto" style={{ fontFamily: 'var(--font-display)' }}>
-            HVAC Innovation Promotions
+            Repair It Raccoon Promotions
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6" style={{ fontFamily: 'var(--font-display)' }}>
             Save Money With Our

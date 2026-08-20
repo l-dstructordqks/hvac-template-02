@@ -19,8 +19,8 @@ const inter = Barlow_Condensed({
 export const metadata: Metadata = {
   metadataBase: new URL(BUSINESS_URL),
   title: {
-    default: 'HVAC Innovation | Heating, AC, Solar & Home Improvement — Frisco Texas',
-    template: '%s | HVAC Innovation',
+    default: 'Repair It Raccoon | Heating, AC, Solar & Home Improvement — Frisco Texas',
+    template: '%s | Repair It Raccoon',
   },
   description:
     'Family-owned HVAC company serving in Frisco Texas since 2008. Service, installation, and maintenance on all brands. furnaces, AC, heat pumps, boilers, solar water heating, and home improvement. Licensed, bonded, and insured.',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'HVAC Innovation',
+    siteName: 'Repair It Raccoon',
     url: BUSINESS_URL,
   },
   robots: {

@@ -122,7 +122,7 @@ export function ServicePage({
               SERVICE OVERVIEW
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-[#0f3460] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
-              Why homeowners choose HVAC Innovation
+              Why homeowners choose Repair It Raccoon
             </h2>
             <p className="text-[#2C3440] leading-relaxed text-base">{intro}</p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -272,7 +272,7 @@ export function ServicePage({
         <div className="max-w-3xl mx-auto px-6 text-center">
           <StarRating count={5} />
           <blockquote className="mt-4 text-xl md:text-2xl font-medium text-[#0f3460] leading-snug" style={{ fontFamily: 'var(--font-display)' }}>
-            &ldquo;HVAC Innovation showed up the same day I called. The technician was professional, explained everything
+            &ldquo;Repair It Raccoon showed up the same day I called. The technician was professional, explained everything
             clearly, and the price matched the quote exactly. Highly recommended.&rdquo;
           </blockquote>
           <p className="mt-4 text-[#2C3440] text-sm">— Maria Rodriguez, Fairfax, VA</p>

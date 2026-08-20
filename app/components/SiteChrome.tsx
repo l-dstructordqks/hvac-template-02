@@ -153,7 +153,7 @@ export function SiteHeader() {
               src="/logotest.png"
               height={8}
               width={250}
-              alt='logo HVAC Innovation LLC'
+              alt='logo Repair It Raccoon LLC'
               className="w-60 h-auto bg-none"
             />
             {/*<div className="w-9 h-9 bg-[#e8420a] rounded flex items-center justify-center flex-shrink-0">
@@ -173,7 +173,7 @@ export function SiteHeader() {
                     src="/logotest.png"
                     height={8}
                     width={250}
-                    alt='logo HVAC Innovation LLC'
+                    alt='logo Repair It Raccoon LLC'
                     className="w-31 h-auto bg-none"
                   />
                   
@@ -473,7 +473,7 @@ export function SiteFooter() {
                   src="/logotest.png"
                   height={10}
                   width={350}
-                  alt='logo HVAC Innovation LLC'
+                  alt='logo Repair It Raccoon LLC'
                   className="w-60 md:w-[350px] h-auto p-1"
                 /> 
               </div>
@@ -482,7 +482,7 @@ export function SiteFooter() {
             {/* Descriptive sentence written for both human readers and AI answer engines (GEO):
                a clear, self-contained "who/what/where/since when" statement. */}
             <p className="text-sm leading-relaxed">
-              HVAC Innovation LLC is a family-owned, licensed, bonded, and insured heating, ventilation, air conditioning, solar, and home remodeling company serving in Frisco Texas since 2008.
+              Repair It Raccoon LLC is a family-owned, licensed, bonded, and insured heating, ventilation, air conditioning, solar, and home remodeling company serving in Frisco Texas since 2008.
             </p>
           </div>
           <div>
@@ -548,7 +548,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-          <p>© {new Date().getFullYear()} HVAC Innovation. All rights reserved. License #VA-4582931.</p>
+          <p>© {new Date().getFullYear()} Repair It Raccoon. All rights reserved. License #VA-4582931.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy
