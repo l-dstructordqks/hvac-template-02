@@ -192,7 +192,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-linear-to-r from-[#8A8F98]/10 via-[#8A8F98]/10 to-transparent" />
         </div>
 
-        <div className="slide-in-right absolute bg-[url('/images/bus1.webp')] aspect-3/2 w-[60vw] bottom-22 md:w-[50vw] bg-cover sm:bottom-0 lg:-bottom-10 right-0"
+        <div className="md:slide-in-right absolute bg-[url('/images/bus1.webp')] aspect-3/2 w-[60vw] bottom-22 md:w-[50vw] bg-cover sm:bottom-0 lg:-bottom-10 right-0"
           />
 
         
